@@ -1,0 +1,49 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+version = '1.0'
+
+
+repositories {
+	maven { url "http://maven.nlpcn.org"}
+	maven { url "http://10.207.2.29:8081/repository/maven-public" }
+	maven { url "http://maven.oschina.net/content/groups/public/"}
+
+	mavenCentral()
+}
+
+dependencies {
+
+	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.22'
+	compile group: 'org.slf4j', name: 'slf4j-nop', version: '1.7.22'
+
+	compile 'org.apache.commons:commons-lang3:3.5'
+	
+	compile group: 'org.apache.spark', name: 'spark-core_2.11', version: '2.1.1'
+	compile group: 'org.apache.spark', name: 'spark-streaming_2.10', version: '2.1.1'
+	
+	compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+
+	testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+jar {
+	baseName = 'sparkdemo'
+	
+	manifest {
+		attributes 'Main-Class': 'org.jsw.spark.spark_demo'
+	}
+	
+	version = '0.3'
+}
+
+test { systemProperties 'property': 'value' }
+
+uploadArchives {
+	repositories {
+		flatDir { dirs 'repos' }
+	}
+}
